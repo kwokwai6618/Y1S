@@ -1,4 +1,4 @@
-name: Y1S-25-01-2020v2
+name: Y1S-25-01-2020v3
 
 on:
   push:
@@ -14,11 +14,11 @@ jobs:
     - name: Install build dependencies
       run: |
         sudo apt-get update
-        sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
+        sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint
     - name: Clone source
       run: |
         cd /home/runner
-        git clone https://github.com/coolsnowwolf/lede.git
+        git clone https://github.com/kwokwai6618/lede.git
         sudo chmod -R 777 lede
         sudo chown -R runner:runner lede
         cd /home/runner/lede
@@ -30,6 +30,14 @@ jobs:
         rm -rf luci-theme-argon
         git clone https://github.com/jerrykuku/luci-theme-argon.git
         sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' '/home/runner/lede/feeds/luci/collections/luci/Makefile'
+    - name: Clone koolproxy
+      run: |
+        cd /home/runner/lede/package/lean
+        git clone https://github.com/openwrt-develop/luci-app-koolproxy
+    - name: Clone adguardhome
+      run: |
+        cd /home/runner/lede/package/lean
+        git clone https://github.com/rufengsuixing/luci-app-adguardhome
     - name: Clone config
       run: |
         cd /home/runner/lede/
